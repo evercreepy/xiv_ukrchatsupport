@@ -6,19 +6,22 @@ using Dalamud.Game.Gui;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
+using Dalamud.Interface.Windowing;
 using Dalamud.IoC;
 using Dalamud.Logging;
 using Dalamud.Plugin;
 using UkrChatSupportPlugin.Sys;
+using UkrChatSupportPlugin.Windows;
 
 namespace UkrChatSupportPlugin;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 public class UkrChatSupportPlugin : IDalamudPlugin
 {
+    public readonly WindowSystem WindowSystem;
     private uint foregroundThreadId;
     private IntPtr foregroundWindow;
-    private CancellationTokenSource stopToken;
+    private CancellationTokenSource? stopToken;
 
     public UkrChatSupportPlugin(
         [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
@@ -26,14 +29,18 @@ public class UkrChatSupportPlugin : IDalamudPlugin
     {
         PluginInterface = pluginInterface;
         Chat = chatGui;
-        
+
         Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         Configuration.Initialize(PluginInterface);
+        WindowSystem = new WindowSystem(typeof(UkrChatSupportPlugin).AssemblyQualifiedName);
+        var configWindow = PluginInterface.Create<ConfigWindow>(this);
+        ConfigWindow = configWindow ?? new ConfigWindow(this);
+        WindowSystem.AddWindow(ConfigWindow);
 
-        if (Configuration.ReactOnlyToUkLayout)
-        {
-            InitCheckerThread();
-        }
+        PluginInterface.UiBuilder.Draw += DrawUI;
+        PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
+
+        if (Configuration.ReactOnlyToUkLayout) InitCheckerThread();
 
         Chat.CheckMessageHandled += ChatOnCheckMessageHandled;
     }
@@ -41,13 +48,15 @@ public class UkrChatSupportPlugin : IDalamudPlugin
     private DalamudPluginInterface PluginInterface { get; init; }
     public Configuration Configuration { get; init; }
     public ChatGui Chat { get; init; }
-    public string Name => "UkrChatSupport";
+    private ConfigWindow ConfigWindow { get; init; }
+    public string Name => "G4E UkrChatSupport";
 
     public void Dispose()
     {
-        stopToken.Cancel();
-        stopToken.Dispose();
+        stopToken?.Cancel();
+        stopToken?.Dispose();
         Chat.CheckMessageHandled -= ChatOnCheckMessageHandled;
+        GC.SuppressFinalize(this);
     }
 
     private void InitCheckerThread()
@@ -92,7 +101,7 @@ public class UkrChatSupportPlugin : IDalamudPlugin
                              .Replace("ї", "ï")       // \u1111 to \u00EF
                              .Replace("Ї", "Ï")       // \u1031 to \u00CF
                              .Replace("є", "\u2208")  // \u0454 to \u2208
-                             .Replace("Є", "\u2208"); // \u0404 yo \u2208
+                             .Replace("Є", "\u2208"); // \u0404 to \u2208
 
                 textPayload.Text = output;
                 PluginLog.LogDebug($"{input}|{output}");
@@ -116,7 +125,7 @@ public class UkrChatSupportPlugin : IDalamudPlugin
         try
         {
             GetForeground();
-            while (!stopToken.IsCancellationRequested)
+            while (stopToken?.IsCancellationRequested == false)
             {
                 Task.Delay(1000, stopToken.Token).Wait();
                 GetForeground();
@@ -126,5 +135,15 @@ public class UkrChatSupportPlugin : IDalamudPlugin
         {
             PluginLog.LogError(e, e.Message);
         }
+    }
+
+    private void DrawUI()
+    {
+        WindowSystem.Draw();
+    }
+
+    public void DrawConfigUI()
+    {
+        ConfigWindow.IsOpen = true;
     }
 }
