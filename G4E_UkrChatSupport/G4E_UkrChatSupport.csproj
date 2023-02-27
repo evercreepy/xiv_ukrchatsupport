@@ -3,11 +3,13 @@
     <PropertyGroup>
         <Authors></Authors>
         <Company></Company>
-        <Version>0.0.0.1</Version>
-        <Description>A sample plugin.</Description>
+        <Version>0.1.0.0</Version>
+        <Description>A Dalamud plugin to support ukrainian symbols in game chat.</Description>
         <Copyright></Copyright>
-        <PackageProjectUrl>https://github.com/goatcorp/SamplePlugin</PackageProjectUrl>
-        <RootNamespace>SamplePlugin</RootNamespace>
+        <PackageProjectUrl>https://github.com/justscribe/g4e_ukrchatsupport</PackageProjectUrl>
+        <RootNamespace>UkrChatSupportPlugin</RootNamespace>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -21,13 +23,6 @@
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Content Include="..\Data\goat.png">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <Visible>false</Visible>
-        </Content>
-    </ItemGroup>
-
     <PropertyGroup>
         <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -39,34 +34,14 @@
 
     <ItemGroup>
         <PackageReference Include="DalamudPackager" Version="2.1.10" />
-        <Reference Include="FFXIVClientStructs">
-            <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="Newtonsoft.Json">
-            <HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
         <Reference Include="Dalamud">
             <HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
             <Private>false</Private>
         </Reference>
-        <Reference Include="ImGui.NET">
-            <HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="ImGuiScene">
-            <HintPath>$(DalamudLibPath)ImGuiScene.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="Lumina">
-            <HintPath>$(DalamudLibPath)Lumina.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="Lumina.Excel">
-            <HintPath>$(DalamudLibPath)Lumina.Excel.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Window" />
     </ItemGroup>
 
 </Project>

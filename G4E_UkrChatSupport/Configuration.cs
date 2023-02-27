@@ -2,17 +2,18 @@
 using Dalamud.Configuration;
 using Dalamud.Plugin;
 
-namespace SamplePlugin;
+namespace UkrChatSupportPlugin;
 
 [Serializable]
 public class Configuration : IPluginConfiguration
 {
     // the below exist just to make saving less cumbersome
     [NonSerialized]
+    // ReSharper disable once InconsistentNaming
     private DalamudPluginInterface? PluginInterface;
 
-    public bool SomePropertyToBeSavedAndWithADefault { get; set; } = true;
-    public int Version { get; set; } = 0;
+    public int Version { get; set; } = 1;
+    public bool ReactOnlyToUkLayout { get; set; } = true;
 
     public void Initialize(DalamudPluginInterface pluginInterface)
     {

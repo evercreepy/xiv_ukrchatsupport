@@ -1,6 +1,6 @@
-# SamplePlugin
+# G4E Ukrainian Chat Support Plugin
 
-Simple example plugin for Dalamud.
+Just a plugin for Dalamud.
 
 This is not designed to be the simplest possible example, but it is also not designed to cover everything you might want to do. For more detailed questions, come ask in [the Discord](https://discord.gg/3NMcUV5).
 
