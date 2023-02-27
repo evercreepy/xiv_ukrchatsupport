@@ -30,6 +30,8 @@ A Dalamud plugin to correctly (as far as the game allows) show ukrainian symbols
 
 Just install plugin from Dalamud list.
 
+## Info
+
 Gaming4Eternity Ukrainian MMO Community
 
 Discord - https://discord.gg/nDX3Rnx
