@@ -72,9 +72,9 @@ public class UkrChatSupportPlugin : IDalamudPlugin
     }
 
     private void ChatOnCheckMessageHandled(
-        XivChatType type, uint senderId, ref SeString sender, ref SeString message, ref bool isHandled)
+        XivChatType chatType, uint senderId, ref SeString sender, ref SeString message, ref bool isHandled)
     {
-        if (isHandled) return;
+        if (isHandled || !IsChatTypeSupported(chatType)) return;
         if (Configuration.ReactOnlyToUkLayout)
         {
             var currentLayout = NativeMethods.GetCurrentKeyboardLayout(foregroundThreadId);
@@ -83,6 +83,28 @@ public class UkrChatSupportPlugin : IDalamudPlugin
         }
 
         ReplaceSymbols(ref message);
+    }
+
+    private bool IsChatTypeSupported(XivChatType type)
+    {
+        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+        switch (type)
+        {
+            case XivChatType.None:
+            case XivChatType.Debug:
+            case XivChatType.Urgent:
+            case XivChatType.Notice:
+            case XivChatType.SystemError:
+            case XivChatType.SystemMessage:
+            case XivChatType.GatheringSystemMessage:
+            case XivChatType.ErrorMessage:
+            case XivChatType.NPCDialogue:
+            case XivChatType.NPCDialogueAnnouncements:
+            case XivChatType.RetainerSale:
+                return false;
+            default:
+                return true;
+        }
     }
 
     private void ReplaceSymbols(ref SeString message)

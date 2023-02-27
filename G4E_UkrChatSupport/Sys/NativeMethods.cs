@@ -15,7 +15,7 @@ public static class NativeMethods
     public static extern uint GetWindowThreadProcessId(IntPtr hwnd, IntPtr proccess);
 
     [DllImport("user32.dll")]
-    public static extern IntPtr GetKeyboardLayout(uint thread);
+    private static extern IntPtr GetKeyboardLayout(uint thread);
 
     public static CultureInfo GetCurrentKeyboardLayout(uint aWindowThreadProcessId)
     {
