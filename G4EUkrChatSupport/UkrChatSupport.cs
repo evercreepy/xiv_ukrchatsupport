@@ -16,14 +16,14 @@ using UkrChatSupportPlugin.Windows;
 namespace UkrChatSupportPlugin;
 
 // ReSharper disable once ClassNeverInstantiated.Global
-public class UkrChatSupportPlugin : IDalamudPlugin
+public class UkrChatSupport : IDalamudPlugin
 {
     public readonly WindowSystem WindowSystem;
     private uint foregroundThreadId;
     private IntPtr foregroundWindow;
     private CancellationTokenSource? stopToken;
 
-    public UkrChatSupportPlugin(
+    public UkrChatSupport(
         [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
         [RequiredVersion("1.0")] ChatGui chatGui)
     {
@@ -32,7 +32,7 @@ public class UkrChatSupportPlugin : IDalamudPlugin
 
         Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         Configuration.Initialize(PluginInterface);
-        WindowSystem = new WindowSystem(typeof(UkrChatSupportPlugin).AssemblyQualifiedName);
+        WindowSystem = new WindowSystem(typeof(UkrChatSupport).AssemblyQualifiedName);
         var configWindow = PluginInterface.Create<ConfigWindow>(this);
         ConfigWindow = configWindow ?? new ConfigWindow(this);
         WindowSystem.AddWindow(ConfigWindow);

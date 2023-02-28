@@ -5,6 +5,6 @@
             OutputPath="$(OutputPath)"
             AssemblyName="$(AssemblyName)"
             MakeZip="true"
-            Exclude="G4E_UkrChatSupport.deps.json;G4E_UkrChatSupport.pdb"/>
+            Exclude="G4EUkrChatSupport.deps.json;G4EUkrChatSupport.pdb"/>
     </Target>
 </Project>

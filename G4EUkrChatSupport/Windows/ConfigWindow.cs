@@ -9,7 +9,7 @@ public class ConfigWindow : Window
     // ReSharper disable once InconsistentNaming
     private readonly Configuration Configuration;
 
-    public ConfigWindow(UkrChatSupportPlugin plugin) : base("UkrChatSupport Configuration",
+    public ConfigWindow(UkrChatSupport plugin) : base("UkrChatSupport Configuration",
                                                             ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse |
                                                             ImGuiWindowFlags.NoScrollbar |
                                                             ImGuiWindowFlags.NoScrollWithMouse)
