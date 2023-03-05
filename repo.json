@@ -16,9 +16,9 @@
         "LoadPriority": 69420,
         "LoadRequiredState": 2,
         "LoadSync": true,
-        "DownloadLinkInstall": "https://github.com/justscribe/g4e_ukrchatsupport/releases/download/0.6.6.1/Penumbra.zip",
-        "DownloadLinkTesting": "https://github.com/justscribe/g4e_ukrchatsupport/download/0.6.6.1/Penumbra.zip",
-        "DownloadLinkUpdate": "https://github.com/justscribe/g4e_ukrchatsupport/download/0.6.6.1/Penumbra.zip",
+        "DownloadLinkInstall": "https://github.com/justscribe/g4e_ukrchatsupport/releases/download/1.0.0.0/G4EUkrChatSupport.zip",
+        "DownloadLinkTesting": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.0/G4EUkrChatSupport.zip",
+        "DownloadLinkUpdate": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.0/G4EUkrChatSupport.zip",
         "IconUrl": "https://github.com/justscribe/g4e_ukrchatsupport/master/images/icon.png"
     }
 ]
