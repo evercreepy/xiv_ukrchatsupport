@@ -10,7 +10,7 @@ jobs:
     build:
         runs-on: windows-latest
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
               with:
                   submodules: true
             - name: Setup .NET
@@ -26,10 +26,10 @@ jobs:
             - name: Build
               run: |
                   dotnet build --no-restore --configuration Release --nologo
-            - name: Archive
-              run: Compress-Archive -Path G4EUkrChatSupport/bin/Release/* -DestinationPath G4EUkrChatSupport.zip
+            - name: Unzip latest file
+              run: 7z e ./G4EUkrChatSupport/bin/Release/G4EUkrChatSupport/latest.zip -o"./G4EUkrChatSupport/bin/Release/G4EUkrChatSupport/latest"
             - name: Upload a Build Artifact
-              uses: actions/upload-artifact@v2.2.1
+              uses: actions/upload-artifact@v3
               with:
                   path: |
-                      ./G4EUkrChatSupport/bin/Release/*
+                      ./G4EUkrChatSupport/bin/Release/G4EUkrChatSupport/latest/*
