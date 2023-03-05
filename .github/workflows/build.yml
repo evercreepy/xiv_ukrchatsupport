@@ -26,10 +26,8 @@ jobs:
             - name: Build
               run: |
                   dotnet build --no-restore --configuration Release --nologo
-            - name: Archive
-              run: Compress-Archive -Path G4EUkrChatSupport/bin/Release/* -DestinationPath G4EUkrChatSupport.zip
             - name: Upload a Build Artifact
               uses: actions/upload-artifact@v2.2.1
               with:
                   path: |
-                      ./G4EUkrChatSupport/bin/Release/*
+                      ./G4EUkrChatSupport/bin/Release/G4EUkrChatSupport/latest.zip
