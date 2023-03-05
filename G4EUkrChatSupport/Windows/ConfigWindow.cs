@@ -10,9 +10,9 @@ public class ConfigWindow : Window
     private readonly Configuration Configuration;
 
     public ConfigWindow(UkrChatSupport plugin) : base("UkrChatSupport Configuration",
-                                                            ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse |
-                                                            ImGuiWindowFlags.NoScrollbar |
-                                                            ImGuiWindowFlags.NoScrollWithMouse)
+                                                      ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse |
+                                                      ImGuiWindowFlags.NoScrollbar |
+                                                      ImGuiWindowFlags.NoScrollWithMouse)
     {
         Size = new Vector2(232, 75);
         SizeCondition = ImGuiCond.Always;
