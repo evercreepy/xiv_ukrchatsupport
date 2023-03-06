@@ -11,7 +11,9 @@ public class Configuration : IPluginConfiguration
     // ReSharper disable once InconsistentNaming
     private DalamudPluginInterface? PluginInterface;
 
-    public bool ReactOnlyToUkLayout { get; set; } = false;
+    public bool ReactOnlyToUkLayout { get; set; }
+    public bool ReplaceOnlyOnUkLayout { get; set; } = true;
+    public bool ReplaceInput { get; set; } = true;
 
     public int Version { get; set; } = 1;
 
