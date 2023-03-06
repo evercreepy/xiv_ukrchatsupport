@@ -8,9 +8,7 @@ on:
 jobs:
     build:
         runs-on: windows-latest
-        permissions: read-all|write-all
         steps:
-            - name: GH_TOKEN
             - uses: actions/checkout@v3
               with:
                   submodules: true
