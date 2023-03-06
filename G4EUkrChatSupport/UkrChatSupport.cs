@@ -21,9 +21,6 @@ namespace UkrChatSupportPlugin;
 public class UkrChatSupport : IDalamudPlugin
 {
     private readonly KeyboardHook keyboardHook;
-    public readonly WindowSystem WindowSystem;
-    private uint foregroundThreadId;
-    private IntPtr foregroundWindow;
 
     private readonly List<KeyReplace> replaceKeys = new()
     {
@@ -50,6 +47,10 @@ public class UkrChatSupport : IDalamudPlugin
         }
     };
 
+    public readonly WindowSystem WindowSystem;
+    private uint foregroundThreadId;
+    private IntPtr foregroundWindow;
+
     private CancellationTokenSource? stopToken;
 
     public UkrChatSupport(
@@ -74,7 +75,7 @@ public class UkrChatSupport : IDalamudPlugin
 
         Chat.CheckMessageHandled += ChatOnCheckMessageHandled;
 
-        keyboardHook = new KeyboardHook(false);
+        keyboardHook = new KeyboardHook(true);
         keyboardHook.KeyDown += Handle_keyboardHookOnKeyDown;
         keyboardHook.OnError += Handle_keyboardHook_OnError;
     }

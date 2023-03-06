@@ -27,12 +27,14 @@ public class ConfigWindow : Window
             Configuration.ReactOnlyToUkLayout = reactOnlyToUkLayout;
             Configuration.Save();
         }
+
         var replaceOnlyOnUkLayout = Configuration.ReplaceOnlyOnUkLayout;
         if (ImGui.Checkbox("Replace only on ukrainian layout (input field)", ref replaceOnlyOnUkLayout))
         {
             Configuration.ReplaceOnlyOnUkLayout = replaceOnlyOnUkLayout;
             Configuration.Save();
         }
+
         var replaceInput = Configuration.ReplaceInput;
         if (ImGui.Checkbox("Replace keyboard input", ref replaceInput))
         {
