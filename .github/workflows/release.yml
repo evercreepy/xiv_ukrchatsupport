@@ -4,9 +4,7 @@ on:
     push:
         tags-ignore:
             - t*
-env:
-    
-
+            
 jobs:
     build:
         runs-on: windows-latest
@@ -85,7 +83,7 @@ jobs:
                   git checkout master
                   git add repo.json
                   git commit -m "[CI] Updating repo.json for ${{ github.ref }}" || true
-            - name: 🤘 checkout
+            - name: checkout
               uses: actions/checkout@v2
               with:
                   fetch-depth: 0
