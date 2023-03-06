@@ -12,7 +12,6 @@ jobs:
             - uses: actions/checkout@v3
               with:
                   submodules: true
-                  token: ${{ secrets.GITHUB_TOKEN }}
             - name: Setup .NET
               uses: actions/setup-dotnet@v1
               with:
@@ -71,8 +70,13 @@ jobs:
                   $content = $content -replace '/1.0.0.0/',"/$ver/"
                   $content = $content -replace '1.0.0.0',$ver
                   set-content -Path $new_path -Value $content
-            - name: Commit and push changes
-              uses: devops-infra/action-commit-push@master
-              with:
-                  github_token: ${{ secrets.G4E_UKRCHATSUPPORT_TOKEN }}
-                  commit_message: "[CI] Updating repo.json for ${{ github.ref }}"
+            - name: Commit repo.json
+              run: |
+                  git config --global user.name "Actions User"
+                  git config --global user.email "actions@github.com"
+                  
+                  git fetch origin dev
+                  git checkout dev
+                  git add repo.json
+                  git commit -m "[CI] Updating repo.json for ${{ github.ref }}" || true                  
+                  git push origin dev -f || true

@@ -4,8 +4,8 @@
         "Name": "G4EUkrChatSupport",
         "Description": "Support for ukrainian characters in text chat. Works only for client side, other people should use this plugin to see these characters. Gaming4Eternity Ukrainian Community - gaming4eternity.online.",
         "InternalName": "G4EUkrChatSupport",
-        "AssemblyVersion": "1.0.0.6",
-        "TestingAssemblyVersion": "1.0.0.6",
+        "AssemblyVersion": "1.0.0.10",
+        "TestingAssemblyVersion": "1.0.0.10",
         "RepoUrl": "https://github.com/justscribe/g4e_ukrchatsupport",
         "ApplicableVersion": "any",
         "DalamudApiLevel": 8,
@@ -16,9 +16,9 @@
         "LoadPriority": 69420,
         "LoadRequiredState": 2,
         "LoadSync": true,
-        "DownloadLinkInstall": "https://github.com/justscribe/g4e_ukrchatsupport/releases/download/1.0.0.6/G4EUkrChatSupport.zip",
-        "DownloadLinkTesting": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.6/G4EUkrChatSupport.zip",
-        "DownloadLinkUpdate": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.6/G4EUkrChatSupport.zip",
-        "IconUrl": "https://github.com/justscribe/g4e_ukrchatsupport/master/images/icon.png"
+        "DownloadLinkInstall": "https://github.com/justscribe/g4e_ukrchatsupport/releases/download/1.0.0.10/G4EUkrChatSupport.zip",
+        "DownloadLinkTesting": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.10/G4EUkrChatSupport.zip",
+        "DownloadLinkUpdate": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.10/G4EUkrChatSupport.zip",
+        "IconUrl": "https://raw.githubusercontent.com/justscribe/g4e_ukrchatsupport/master/images/icon.png"
     }
 ]
