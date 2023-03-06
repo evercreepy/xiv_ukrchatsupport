@@ -4,12 +4,15 @@ on:
     push:
         tags-ignore:
             - t*
+env:
+    
 
 jobs:
     build:
         runs-on: windows-latest
         permissions: read-all|write-all
         steps:
+            - name: GH_TOKEN
             - uses: actions/checkout@v3
               with:
                   submodules: true
@@ -82,8 +85,9 @@ jobs:
                   git checkout master
                   git add repo.json
                   git commit -m "[CI] Updating repo.json for ${{ github.ref }}" || true
-                  
-                  git push -f origin master
-                  git branch -f dev origin/master
-                  git checkout dev
-                  git push origin dev -f || true
+            - name: 🤘 checkout
+              uses: actions/checkout@v2
+              with:
+                fetch-depth: 0
+                ref: main
+                token: ${{ secrets.GH_TOKEN }}
