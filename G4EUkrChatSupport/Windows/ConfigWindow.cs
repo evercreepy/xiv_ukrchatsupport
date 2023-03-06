@@ -14,17 +14,29 @@ public class ConfigWindow : Window
                                                       ImGuiWindowFlags.NoScrollbar |
                                                       ImGuiWindowFlags.NoScrollWithMouse)
     {
-        Size = new Vector2(232, 75);
+        Size = new Vector2(292, 115);
         SizeCondition = ImGuiCond.Always;
         Configuration = plugin.Configuration;
     }
 
     public override void Draw()
     {
-        var configValue = Configuration.ReactOnlyToUkLayout;
-        if (ImGui.Checkbox("React only to ukrainian layout", ref configValue))
+        var reactOnlyToUkLayout = Configuration.ReactOnlyToUkLayout;
+        if (ImGui.Checkbox("React only to ukrainian layout (chat window)", ref reactOnlyToUkLayout))
         {
-            Configuration.ReactOnlyToUkLayout = configValue;
+            Configuration.ReactOnlyToUkLayout = reactOnlyToUkLayout;
+            Configuration.Save();
+        }
+        var replaceOnlyOnUkLayout = Configuration.ReplaceOnlyOnUkLayout;
+        if (ImGui.Checkbox("Replace only on ukrainian layout (input field)", ref replaceOnlyOnUkLayout))
+        {
+            Configuration.ReplaceOnlyOnUkLayout = replaceOnlyOnUkLayout;
+            Configuration.Save();
+        }
+        var replaceInput = Configuration.ReplaceInput;
+        if (ImGui.Checkbox("Replace keyboard input", ref replaceInput))
+        {
+            Configuration.ReplaceInput = replaceInput;
             Configuration.Save();
         }
     }

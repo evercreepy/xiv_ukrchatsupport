@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Dalamud.Interface.Windowing;
 using Dalamud.IoC;
 using Dalamud.Logging;
 using Dalamud.Plugin;
+using FFXIVClientStructs.FFXIV.Component.GUI;
 using UkrChatSupportPlugin.Sys;
 using UkrChatSupportPlugin.Windows;
 
@@ -18,17 +20,45 @@ namespace UkrChatSupportPlugin;
 // ReSharper disable once ClassNeverInstantiated.Global
 public class UkrChatSupport : IDalamudPlugin
 {
+    private readonly KeyboardHook keyboardHook;
     public readonly WindowSystem WindowSystem;
     private uint foregroundThreadId;
     private IntPtr foregroundWindow;
+
+    private readonly List<KeyReplace> replaceKeys = new()
+    {
+        // "і"
+        new KeyReplace
+        {
+            Key = Forms.Keys.S,
+            RKey = 105,
+            RCapitalKey = 73
+        },
+        // "ї"
+        new KeyReplace
+        {
+            Key = Forms.Keys.Oem6,
+            RKey = 239,
+            RCapitalKey = 207
+        },
+        // "є"
+        new KeyReplace
+        {
+            Key = Forms.Keys.Oem7,
+            RKey = 8712,
+            RCapitalKey = 8712
+        }
+    };
+
     private CancellationTokenSource? stopToken;
 
     public UkrChatSupport(
         [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
-        [RequiredVersion("1.0")] ChatGui chatGui)
+        [RequiredVersion("1.0")] ChatGui chatGui, [RequiredVersion("1.0")] GameGui gameGui)
     {
         PluginInterface = pluginInterface;
         Chat = chatGui;
+        Game = gameGui;
 
         Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         Configuration.Initialize(PluginInterface);
@@ -43,11 +73,16 @@ public class UkrChatSupport : IDalamudPlugin
         if (Configuration.ReactOnlyToUkLayout) InitCheckerThread();
 
         Chat.CheckMessageHandled += ChatOnCheckMessageHandled;
+
+        keyboardHook = new KeyboardHook(false);
+        keyboardHook.KeyDown += Handle_keyboardHookOnKeyDown;
+        keyboardHook.OnError += Handle_keyboardHook_OnError;
     }
 
     private DalamudPluginInterface PluginInterface { get; init; }
     public Configuration Configuration { get; init; }
     public ChatGui Chat { get; init; }
+    public GameGui Game { get; init; }
     private ConfigWindow ConfigWindow { get; init; }
     public string Name => "G4E UkrChatSupport";
 
@@ -56,7 +91,33 @@ public class UkrChatSupport : IDalamudPlugin
         stopToken?.Cancel();
         stopToken?.Dispose();
         Chat.CheckMessageHandled -= ChatOnCheckMessageHandled;
+        keyboardHook.KeyDown -= Handle_keyboardHookOnKeyDown;
+        keyboardHook.OnError -= Handle_keyboardHook_OnError;
+        keyboardHook.Dispose();
         GC.SuppressFinalize(this);
+    }
+
+    private void Handle_keyboardHookOnKeyDown(Forms.Keys key, bool shift, bool ctrl, bool alt, ref bool skipNext)
+    {
+        if (!Configuration.ReplaceInput || (Configuration.ReplaceOnlyOnUkLayout && !IsUkrainianLayout())) return;
+        if (!IsTyping()) return;
+
+        ReplaceInput(key, shift, ref skipNext);
+    }
+
+    private void ReplaceInput(Forms.Keys aKey, bool aIsShift, ref bool aNextSkip)
+    {
+        foreach (var keyReplace in replaceKeys.Where(keyReplace => keyReplace.Key == aKey))
+        {
+            aNextSkip = true;
+            KeyboardHook.SendCharUnicode(aIsShift ? keyReplace.RCapitalKey : keyReplace.RKey);
+            return;
+        }
+    }
+
+    private void Handle_keyboardHook_OnError(Exception e)
+    {
+        PluginLog.LogError(e, e.Message);
     }
 
     private void InitCheckerThread()
@@ -75,14 +136,16 @@ public class UkrChatSupport : IDalamudPlugin
         XivChatType chatType, uint senderId, ref SeString sender, ref SeString message, ref bool isHandled)
     {
         if (isHandled || !IsChatTypeSupported(chatType)) return;
-        if (Configuration.ReactOnlyToUkLayout)
-        {
-            var currentLayout = NativeMethods.GetCurrentKeyboardLayout(foregroundThreadId);
-            // "uk" - ukrainian
-            if (!currentLayout.TwoLetterISOLanguageName.Equals("uk")) return;
-        }
+        if (Configuration.ReactOnlyToUkLayout && !IsUkrainianLayout()) return;
 
         ReplaceSymbols(ref message);
+    }
+
+    private bool IsUkrainianLayout()
+    {
+        var currentLayout = NativeMethods.GetCurrentKeyboardLayout(foregroundThreadId);
+        // "uk" - ukrainian
+        return currentLayout.TwoLetterISOLanguageName.Equals("uk");
     }
 
     private bool IsChatTypeSupported(XivChatType type)
@@ -134,6 +197,18 @@ public class UkrChatSupport : IDalamudPlugin
             PluginLog.LogDebug(e, $"Failed to replace symbols for: {message}");
             PluginLog.LogError(e, e.Message);
         }
+    }
+
+    private unsafe bool IsTyping()
+    {
+        var chatLog = (AtkUnitBase*)Game.GetAddonByName("ChatLog");
+
+        if (!chatLog->IsVisible) return false;
+
+        var textInput = chatLog->UldManager.NodeList[15];
+        var chatCursor = textInput->GetAsAtkComponentNode()->Component->UldManager.NodeList[14];
+
+        return chatCursor->IsVisible;
     }
 
     private void GetForeground()
