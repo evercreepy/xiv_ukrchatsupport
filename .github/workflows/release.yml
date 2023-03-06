@@ -88,6 +88,6 @@ jobs:
             - name: 🤘 checkout
               uses: actions/checkout@v2
               with:
-                fetch-depth: 0
-                ref: main
-                token: ${{ secrets.GH_TOKEN }}
+                  fetch-depth: 0
+                  ref: main
+                  token: ${{ secrets.GH_TOKEN }}

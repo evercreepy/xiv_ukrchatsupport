@@ -45,18 +45,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="DalamudPackager" Version="2.1.10" />
+        <PackageReference Include="DalamudPackager" Version="2.1.10"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="G4EUkrChatSupport.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <None Update="G4EUkrChatSupport.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <Target Name="GetGitHash" BeforeTargets="GetAssemblyVersion" Returns="InformationalVersion">
         <Exec Command="git rev-parse --short HEAD" ConsoleToMSBuild="true" StandardOutputImportance="low">
-            <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitHash" />
+            <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitHash"/>
         </Exec>
 
         <PropertyGroup>
