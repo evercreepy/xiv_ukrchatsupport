@@ -1,36 +1,48 @@
-# G4E Ukrainian Chat Support Plugin
+# `G4E Ukrainian Chat Support Plugin`
 
-# УКРАЇНСЬКОЮ
+### === УКРАЇНСЬКОЮ ===
 Dalamud плагін для коректного (наскільки дозволяє гра) відображення українських символів у вікні чату гри.
 
-## Основні деталі
+#### **Основні деталі**
 
 * Основний функціонал
   * Заміна специфічних українських символів в чаті гри ("і", "ї", "є", "ґ" - не підтримується)
+  * Заміну можна налаштувати окремо для вводу, щоб реагування тільки на українську розкладку (стандартні налаштування мають підійти для 99% людей).
+  * Навіть якщо вам в чат написав хтось без плагіна, відобразиться все з заміною.
 
 * Опції
-  * Реагувати тільки на українську розкладку
+  * Реагувати тільки на українську розкладку (для вікна чату - по замовчуванню `FALSE`).
+  * Реагувати тільки на українську розкладку (для вводу - по замовчуванню `TRUE`).
+  * Замінювати ввід з клавіатури (по замовчуванню `TRUE`).
 
-## Як використовувати
+#### **Як використовувати**
 
-Просто встановіть плагін зі списку Dalamud.
+###### Є 2 варіанти:
+1. Просто встановіть плагін зі списку Dalamud (поки недоступно, в процесі перевірки).
+2. Або використайте лінк на вкладці "Experimental" в Dalamud - https://raw.githubusercontent.com/justscribe/g4e_ukrchatsupport/master/repo.json для отримання самих останніх релізів дуже швидко.
 
-# IN ENGLISH
+### === IN ENGLISH ===
 A Dalamud plugin to correctly (as far as the game allows) show ukrainian symbols in game chat window.
 
-## Main Points
+#### **Main Points**
 
 * Main functionality
-  * Replace ukrainian specific characters in game chat ("і", "ї", "є", "ґ" - is not supported)
+  * Replace ukrainian specific characters in game chat ("і", "ї", "є", "ґ" - is not supported).
+  * Replace can be configured separately for input to react only to ukrainian layout (default configuration should fit fot 99% of the people).
+  * Even if someone wrote in your chat without a plugin, all will be shown with replacement.
 
 * Config options
-  * React only to ukrainian layout
+  * React only to ukrainian layout (for chat window - default is `FALSE`).
+  * React only to ukrainian layout (for input - default is `TRUE`).
+  * Replace keyboard input (default is `TRUE`).
 
-## To Use
+#### **To Use**
 
-Just install plugin from Dalamud list.
+###### There are 2 ways:
+1. Just install plugin from Dalamud list (unavailable yet, in review process).
+2. Or use the link on Dalamud "Experimental" tab - https://raw.githubusercontent.com/justscribe/g4e_ukrchatsupport/master/repo.json to receive latest releases faster.
 
-## Info
+#### **Info**
 
 Gaming4Eternity Ukrainian MMO Community
 

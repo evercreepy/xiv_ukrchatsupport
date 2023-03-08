@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using static UkrChatSupportPlugin.Sys.Forms;
+using static UkrChatSupportPlugin.Sys.Constants;
 
+// ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
+// ReSharper disable UnusedMember.Local
 
 namespace UkrChatSupportPlugin.Sys;
 
@@ -171,7 +173,7 @@ public class KeyboardHook : IDisposable
 
     private readonly bool Global;
 
-    private readonly IntPtr HookID = nint.Zero;
+    private readonly IntPtr HookID;
 
     private readonly CallbackDelegate TheHookCB;
 
@@ -189,11 +191,7 @@ public class KeyboardHook : IDisposable
         else
             HookID = SetWindowsHookEx(HookType.WH_KEYBOARD, TheHookCB, nint.Zero, GetCurrentThreadId());
 
-        if (HookID == nint.Zero)
-        {
-            throw new Exception(Marshal.GetLastWin32Error().ToString());
-            //OnError?.Invoke(new Exception(Marshal.GetLastWin32Error().ToString()));
-        }
+        if (HookID == nint.Zero) throw new Exception(Marshal.GetLastWin32Error().ToString());
     }
 
     public void Dispose()
@@ -427,22 +425,19 @@ public class KeyboardHook : IDisposable
     public static bool GetShiftPressed()
     {
         int keyState = GetKeyState(Keys.ShiftKey);
-        if (keyState > 1 || keyState < -1) return true;
-        return false;
+        return keyState is > 1 or < -1;
     }
 
     public static bool GetCtrlPressed()
     {
         int keyState = GetKeyState(Keys.ControlKey);
-        if (keyState > 1 || keyState < -1) return true;
-        return false;
+        return keyState is > 1 or < -1;
     }
 
     public static bool GetAltPressed()
     {
         int keyState = GetKeyState(Keys.Menu);
-        if (keyState > 1 || keyState < -1) return true;
-        return false;
+        return keyState is > 1 or < -1;
     }
 
     private delegate int CallbackDelegate(int code, IntPtr w, IntPtr l);
