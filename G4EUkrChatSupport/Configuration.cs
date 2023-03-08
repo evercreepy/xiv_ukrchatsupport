@@ -7,6 +7,8 @@ namespace UkrChatSupportPlugin;
 [Serializable]
 public class Configuration : IPluginConfiguration
 {
+    public delegate void ConfigChanged(Configuration configuration);
+
     [NonSerialized]
     // ReSharper disable once InconsistentNaming
     private DalamudPluginInterface? PluginInterface;
@@ -17,6 +19,8 @@ public class Configuration : IPluginConfiguration
 
     public int Version { get; set; } = 1;
 
+    public event ConfigChanged? OnConfigChanged;
+
     public void Initialize(DalamudPluginInterface pluginInterface)
     {
         PluginInterface = pluginInterface;
@@ -25,5 +29,6 @@ public class Configuration : IPluginConfiguration
     public void Save()
     {
         PluginInterface!.SavePluginConfig(this);
+        OnConfigChanged?.Invoke(this);
     }
 }
