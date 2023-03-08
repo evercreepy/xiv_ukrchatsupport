@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,31 +20,6 @@ namespace UkrChatSupportPlugin;
 // ReSharper disable once ClassNeverInstantiated.Global
 public class UkrChatSupport : IDalamudPlugin
 {
-    private readonly List<KeyReplace> replaceKeys = new()
-    {
-        // "і"
-        new KeyReplace
-        {
-            Key = Forms.Keys.S,
-            RKey = 105,
-            RCapitalKey = 73
-        },
-        // "ї"
-        new KeyReplace
-        {
-            Key = Forms.Keys.Oem6,
-            RKey = 239,
-            RCapitalKey = 207
-        },
-        // "є"
-        new KeyReplace
-        {
-            Key = Forms.Keys.Oem7,
-            RKey = 8712,
-            RCapitalKey = 8712
-        }
-    };
-
     private uint foregroundThreadId;
     private IntPtr foregroundWindow;
     private KeyboardHook keyboardHook;
@@ -54,6 +28,7 @@ public class UkrChatSupport : IDalamudPlugin
 
     public WindowSystem WindowSystem;
 
+#pragma warning disable CS8618
     public UkrChatSupport(
         [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
         [RequiredVersion("1.0")] ChatGui chatGui, [RequiredVersion("1.0")] GameGui gameGui,
@@ -65,6 +40,7 @@ public class UkrChatSupport : IDalamudPlugin
 
         framework.RunOnFrameworkThread(Setup);
     }
+#pragma warning restore CS8618
 
     private DalamudPluginInterface PluginInterface { get; init; }
     public Configuration Configuration { get; set; }
@@ -95,7 +71,7 @@ public class UkrChatSupport : IDalamudPlugin
         PluginInterface.UiBuilder.Draw += DrawUI;
         PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
 
-        if (Configuration.ReactOnlyToUkLayout) InitCheckerThread();
+        if (Configuration.ReactOnlyToUkLayout || Configuration.ReplaceOnlyOnUkLayout) InitCheckerThread();
 
         Chat.CheckMessageHandled += ChatOnCheckMessageHandled;
 
@@ -113,14 +89,13 @@ public class UkrChatSupport : IDalamudPlugin
         PluginLog.LogInformation($"Configuration.ReplaceInput - {Configuration.ReplaceInput}");
     }
 
-    private void Handle_keyboardHookOnKeyDown(Forms.Keys key, bool shift, bool ctrl, bool alt, ref bool skipNext)
+    private void Handle_keyboardHookOnKeyDown(Constants.Keys key, bool shift, bool ctrl, bool alt, ref bool skipNext)
     {
         try
         {
             if (!Configuration.ReplaceInput || (Configuration.ReplaceOnlyOnUkLayout && !IsUkrainianLayout())) return;
             if (!IsTyping())
             {
-                PluginLog.LogInformation("Not typing, skip!");
                 return;
             }
 
@@ -132,9 +107,9 @@ public class UkrChatSupport : IDalamudPlugin
         }
     }
 
-    private void ReplaceInput(Forms.Keys aKey, bool aIsShift, ref bool aNextSkip)
+    private void ReplaceInput(Constants.Keys aKey, bool aIsShift, ref bool aNextSkip)
     {
-        foreach (var keyReplace in replaceKeys.Where(keyReplace => keyReplace.Key == aKey))
+        foreach (var keyReplace in Constants.ReplaceKeys.Where(keyReplace => keyReplace.Key == aKey))
         {
             aNextSkip = true;
             KeyboardHook.SendCharUnicode(aIsShift ? keyReplace.RCapitalKey : keyReplace.RKey);
@@ -172,7 +147,6 @@ public class UkrChatSupport : IDalamudPlugin
     {
         var currentLayout = NativeMethods.GetCurrentKeyboardLayout(foregroundThreadId);
         // "uk" - ukrainian
-        PluginLog.LogInformation($"Current layout - {currentLayout.TwoLetterISOLanguageName}");
         return currentLayout.TwoLetterISOLanguageName.Equals("uk");
     }
 
@@ -217,7 +191,6 @@ public class UkrChatSupport : IDalamudPlugin
                              .Replace("Є", "\u2208"); // \u0404 to \u2208
 
                 textPayload.Text = output;
-                PluginLog.LogDebug($"{input}|{output}");
             }
         }
         catch (Exception e)

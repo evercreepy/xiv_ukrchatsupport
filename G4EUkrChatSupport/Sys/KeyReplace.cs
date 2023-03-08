@@ -1,22 +1,19 @@
-﻿using System;
+﻿namespace UkrChatSupportPlugin.Sys;
 
-namespace UkrChatSupportPlugin.Sys;
-
-[Serializable]
-internal class KeyReplace
+public class KeyReplace
 {
     /// <summary>
     ///     Keyboard key
     /// </summary>
-    public Forms.Keys Key { get; set; }
+    public Constants.Keys Key { get; init; }
 
     /// <summary>
     ///     UTF Char replacement
     /// </summary>
-    public int RKey { get; set; }
+    public int RKey { get; init; }
 
     /// <summary>
     ///     UTF Char replacement for capital (Shift pressed)
     /// </summary>
-    public int RCapitalKey { get; set; }
+    public int RCapitalKey { get; init; }
 }

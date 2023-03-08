@@ -1,6 +1,12 @@
-﻿namespace UkrChatSupportPlugin.Sys;
+﻿using System.Collections.Generic;
 
-public static class Forms
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+// ReSharper disable CommentTypo
+
+namespace UkrChatSupportPlugin.Sys;
+
+public static class Constants
 {
     public enum Keys
     {
@@ -976,4 +982,29 @@ public static class Forms
         //     The ALT modifier key.
         Alt = 0x40000
     }
+
+    public static readonly List<KeyReplace> ReplaceKeys = new()
+    {
+        // "і"
+        new KeyReplace
+        {
+            Key = Keys.S,
+            RKey = 105,
+            RCapitalKey = 73
+        },
+        // "ї"
+        new KeyReplace
+        {
+            Key = Keys.Oem6,
+            RKey = 239,
+            RCapitalKey = 207
+        },
+        // "є"
+        new KeyReplace
+        {
+            Key = Keys.Oem7,
+            RKey = 8712,
+            RCapitalKey = 8712
+        }
+    };
 }
