@@ -63,6 +63,8 @@ public class UkrChatSupport : IDalamudPlugin
     {
         Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         Configuration.Initialize(PluginInterface);
+        Configuration.OnConfigChanged += Handle_ConfigurationOnOnConfigChanged;
+
         WindowSystem = new WindowSystem(typeof(UkrChatSupport).AssemblyQualifiedName);
         var configWindow = PluginInterface.Create<ConfigWindow>(this);
         ConfigWindow = configWindow ?? new ConfigWindow(this);
@@ -82,6 +84,17 @@ public class UkrChatSupport : IDalamudPlugin
         WriteCurrentConfig();
     }
 
+    private void Handle_ConfigurationOnOnConfigChanged(Configuration configuration)
+    {
+        if (configuration.ReplaceInput)
+        {
+            keyboardHook.KeyDown -= Handle_keyboardHookOnKeyDown;
+            keyboardHook.KeyDown += Handle_keyboardHookOnKeyDown;
+        }
+        else
+            keyboardHook.KeyDown -= Handle_keyboardHookOnKeyDown;
+    }
+
     private void WriteCurrentConfig()
     {
         PluginLog.LogInformation($"Configuration.ReactOnlyToUkLayout - {Configuration.ReactOnlyToUkLayout}");
@@ -94,10 +107,7 @@ public class UkrChatSupport : IDalamudPlugin
         try
         {
             if (!Configuration.ReplaceInput || (Configuration.ReplaceOnlyOnUkLayout && !IsUkrainianLayout())) return;
-            if (!IsTyping())
-            {
-                return;
-            }
+            if (!IsTyping()) return;
 
             ReplaceInput(key, shift, ref skipNext);
         }
