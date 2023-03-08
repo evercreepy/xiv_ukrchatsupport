@@ -188,6 +188,12 @@ public class KeyboardHook : IDisposable
         }
         else
             HookID = SetWindowsHookEx(HookType.WH_KEYBOARD, TheHookCB, nint.Zero, GetCurrentThreadId());
+
+        if (HookID == nint.Zero)
+        {
+            throw new Exception(Marshal.GetLastWin32Error().ToString());
+            //OnError?.Invoke(new Exception(Marshal.GetLastWin32Error().ToString()));
+        }
     }
 
     public void Dispose()
@@ -211,7 +217,7 @@ public class KeyboardHook : IDisposable
     [DllImport("user32.dll")]
     public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-    [DllImport("user32", CallingConvention = CallingConvention.StdCall)]
+    [DllImport("user32", CallingConvention = CallingConvention.StdCall, SetLastError = true)]
     private static extern IntPtr SetWindowsHookEx(
         HookType idHook, CallbackDelegate lpfn, IntPtr hInstance,
         int threadId);
