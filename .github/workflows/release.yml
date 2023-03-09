@@ -85,5 +85,6 @@ jobs:
                   git fetch origin dev
                   git checkout dev
                   git add repo.json
+                  git add G4EUkrChatSupport/G4EUkrChatSupport.csproj
                   git commit -m "[CI] Updating Version for ${{ github.ref }}" || true                  
                   git push origin dev -f || true
