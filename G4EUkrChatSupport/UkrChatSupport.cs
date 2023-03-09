@@ -29,6 +29,13 @@ public class UkrChatSupport : IDalamudPlugin
     public WindowSystem WindowSystem;
 
 #pragma warning disable CS8618
+    /// <summary>
+    /// Plugin setup in Framework thread
+    /// </summary>
+    /// <param name="pluginInterface"></param>
+    /// <param name="chatGui"></param>
+    /// <param name="gameGui"></param>
+    /// <param name="framework"></param>
     public UkrChatSupport(
         [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
         [RequiredVersion("1.0")] ChatGui chatGui, [RequiredVersion("1.0")] GameGui gameGui,
