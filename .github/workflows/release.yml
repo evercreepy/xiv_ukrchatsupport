@@ -72,9 +72,9 @@ jobs:
                   $content = $content -replace '/1.0.0.0/',"/$ver/"
                   $content = $content -replace '1.0.0.0',$ver
                   $project_content = get-content -path $project_path
-                  $project_content = $project_content -replace '<Version>[\d]\.[\d]\.[\d]\.[\d]<\/Version>',$ver
-                  $project_content = $project_content -replace '<AssemblyVersion>[\d]\.[\d]\.[\d]\.[\d]<\/AssemblyVersion>',$ver
-                  $project_content = $project_content -replace '<FileVersion>[\d]\.[\d]\.[\d]\.[\d]<\/FileVersion>',$ver
+                  $project_content = $project_content -replace '<Version>[\d]\.[\d]\.[\d]\.[\d]<\/Version>','<Version>' + $ver + '</Version>'
+                  $project_content = $project_content -replace '<AssemblyVersion>[\d]\.[\d]\.[\d]\.[\d]<\/AssemblyVersion>',<AssemblyVersion> + $ver + '</AssemblyVersion>'
+                  $project_content = $project_content -replace '<FileVersion>[\d]\.[\d]\.[\d]\.[\d]<\/FileVersion>','<FileVersion>' + $ver + '</FileVersion>'
                   set-content -Path $new_path -Value $content
                   set-content -Path $project_path -Value $project_content
             - name: Commit repo.json and G4EUkrChatSupport.csproj
