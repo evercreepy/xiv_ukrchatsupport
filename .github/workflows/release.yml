@@ -62,7 +62,7 @@ jobs:
                   asset_name: G4EUkrChatSupport.zip
                   asset_content_type: application/zip
 
-            - name: Write out repo.json
+            - name: Write out repo.json and G4EUkrChatSupport.csproj
               run: |
                   $ver = '${{ github.ref }}' -replace 'refs/tags/',''
                   $path = './base_repo.json'
@@ -72,12 +72,12 @@ jobs:
                   $content = $content -replace '/1.0.0.0/',"/$ver/"
                   $content = $content -replace '1.0.0.0',$ver
                   $project_content = get-content -path $project_path
-                  $project_content = -replace '<Version>[\d]\.[\d]\.[\d]\.[\d]<\/Version>',$ver
-                  $project_content = -replace '<AssemblyVersion>[\d]\.[\d]\.[\d]\.[\d]<\/AssemblyVersion>',$ver
-                  $project_content = -replace '<FileVersion>[\d]\.[\d]\.[\d]\.[\d]<\/FileVersion>',$ver
+                  $project_content = $project_content -replace '<Version>[\d]\.[\d]\.[\d]\.[\d]<\/Version>',$ver
+                  $project_content = $project_content -replace '<AssemblyVersion>[\d]\.[\d]\.[\d]\.[\d]<\/AssemblyVersion>',$ver
+                  $project_content = $project_content -replace '<FileVersion>[\d]\.[\d]\.[\d]\.[\d]<\/FileVersion>',$ver
                   set-content -Path $new_path -Value $content
                   set-content -Path $project_path -Value $project_content
-            - name: Commit repo.json
+            - name: Commit repo.json and G4EUkrChatSupport.csproj
               run: |
                   git config --global user.name "Actions User"
                   git config --global user.email "actions@github.com"
