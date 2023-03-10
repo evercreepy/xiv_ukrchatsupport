@@ -4,8 +4,8 @@
         "Name": "G4EUkrChatSupport",
         "Description": "Support for ukrainian characters in text chat and input field. Gaming4Eternity Ukrainian Community - https://gaming4eternity.online",
         "InternalName": "G4EUkrChatSupport",
-        "AssemblyVersion": "1.0.0.23",
-        "TestingAssemblyVersion": "1.0.0.23",
+        "AssemblyVersion": "1.0.0.24",
+        "TestingAssemblyVersion": "1.0.0.24",
         "RepoUrl": "https://github.com/justscribe/g4e_ukrchatsupport",
         "ApplicableVersion": "any",
         "DalamudApiLevel": 8,
@@ -16,9 +16,9 @@
         "LoadPriority": 69420,
         "LoadRequiredState": 2,
         "LoadSync": true,
-        "DownloadLinkInstall": "https://github.com/justscribe/g4e_ukrchatsupport/releases/download/1.0.0.23/G4EUkrChatSupport.zip",
-        "DownloadLinkTesting": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.23/G4EUkrChatSupport.zip",
-        "DownloadLinkUpdate": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.23/G4EUkrChatSupport.zip",
+        "DownloadLinkInstall": "https://github.com/justscribe/g4e_ukrchatsupport/releases/download/1.0.0.24/G4EUkrChatSupport.zip",
+        "DownloadLinkTesting": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.24/G4EUkrChatSupport.zip",
+        "DownloadLinkUpdate": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.24/G4EUkrChatSupport.zip",
         "IconUrl": "https://raw.githubusercontent.com/justscribe/g4e_ukrchatsupport/master/images/icon.png"
     }
 ]
