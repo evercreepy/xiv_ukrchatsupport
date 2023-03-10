@@ -22,15 +22,14 @@ public class UkrChatSupport : IDalamudPlugin
 {
     private uint foregroundThreadId;
     private IntPtr foregroundWindow;
-    private KeyboardHook keyboardHook;
+    private bool isDisposed;
+    private KeyboardHook? keyboardHook;
 
     private CancellationTokenSource? stopToken;
 
-    public WindowSystem WindowSystem;
-
 #pragma warning disable CS8618
     /// <summary>
-    /// Plugin setup in Framework thread
+    ///     Plugin setup in Framework thread
     /// </summary>
     /// <param name="pluginInterface"></param>
     /// <param name="chatGui"></param>
@@ -50,6 +49,7 @@ public class UkrChatSupport : IDalamudPlugin
 #pragma warning restore CS8618
 
     private DalamudPluginInterface PluginInterface { get; init; }
+    public WindowSystem WindowSystem { get; set; }
     public Configuration Configuration { get; set; }
     public ChatGui Chat { get; set; }
     public GameGui Game { get; set; }
@@ -58,12 +58,31 @@ public class UkrChatSupport : IDalamudPlugin
 
     public void Dispose()
     {
-        stopToken?.Cancel();
-        stopToken?.Dispose();
-        Chat.CheckMessageHandled -= ChatOnCheckMessageHandled;
-        keyboardHook.KeyDown -= Handle_keyboardHookOnKeyDown;
-        keyboardHook.OnError -= Handle_keyboardHook_OnError;
-        keyboardHook.Dispose();
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool isDisposing)
+    {
+        if (!isDisposed)
+        {
+            if (isDisposing)
+            {
+                stopToken?.Cancel();
+                stopToken?.Dispose();
+                Chat.CheckMessageHandled -= ChatOnCheckMessageHandled;
+                if (keyboardHook != null)
+                {
+                    keyboardHook.KeyDown -= Handle_keyboardHookOnKeyDown;
+                    keyboardHook.OnError -= Handle_keyboardHook_OnError;
+                    keyboardHook.Dispose();
+                }
+            }
+
+            stopToken = null;
+            keyboardHook = null;
+            isDisposed = true;
+        }
     }
 
     private void Setup()
@@ -93,6 +112,7 @@ public class UkrChatSupport : IDalamudPlugin
 
     private void Handle_ConfigurationOnOnConfigChanged(Configuration configuration)
     {
+        if (keyboardHook == null) return;
         if (configuration.ReplaceInput)
         {
             keyboardHook.KeyDown -= Handle_keyboardHookOnKeyDown;
@@ -260,5 +280,10 @@ public class UkrChatSupport : IDalamudPlugin
     public void DrawConfigUI()
     {
         ConfigWindow.Toggle();
+    }
+
+    ~UkrChatSupport()
+    {
+        Dispose(false);
     }
 }
