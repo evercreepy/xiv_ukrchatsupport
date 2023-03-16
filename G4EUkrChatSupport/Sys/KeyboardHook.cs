@@ -227,7 +227,7 @@ public class KeyboardHook : IDisposable
     private static extern int CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, IntPtr lParam);
 
     [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall)]
-    private static extern int GetCurrentThreadId();
+    public static extern int GetCurrentThreadId();
 
     [DllImport("kernel32.dll")]
     private static extern IntPtr LoadLibrary(string lpFileName);
