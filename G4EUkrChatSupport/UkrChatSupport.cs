@@ -20,6 +20,7 @@ namespace UkrChatSupportPlugin;
 // ReSharper disable once ClassNeverInstantiated.Global
 public class UkrChatSupport : IDalamudPlugin
 {
+    private int currentThreadId;
     private uint foregroundThreadId;
     private IntPtr foregroundWindow;
     private bool isDisposed;
@@ -29,7 +30,7 @@ public class UkrChatSupport : IDalamudPlugin
 
 #pragma warning disable CS8618
     /// <summary>
-    ///     Plugin setup in Framework thread
+    /// Plugin setup in Framework thread
     /// </summary>
     /// <param name="pluginInterface"></param>
     /// <param name="chatGui"></param>
@@ -106,12 +107,14 @@ public class UkrChatSupport : IDalamudPlugin
         keyboardHook = new KeyboardHook(true);
         keyboardHook.KeyDown += Handle_keyboardHookOnKeyDown;
         keyboardHook.OnError += Handle_keyboardHook_OnError;
-
-        WriteCurrentConfig();
+        currentThreadId = KeyboardHook.GetCurrentThreadId();
     }
 
     private void Handle_ConfigurationOnOnConfigChanged(Configuration configuration)
     {
+#if DEBUG
+        WriteCurrentConfig();
+#endif
         if (keyboardHook == null) return;
         if (configuration.ReplaceInput)
         {
@@ -133,8 +136,10 @@ public class UkrChatSupport : IDalamudPlugin
     {
         try
         {
-            if (!Configuration.ReplaceInput || (Configuration.ReplaceOnlyOnUkLayout && !IsUkrainianLayout())) return;
-            if (!IsTyping()) return;
+            if (!IsInsideFFXIV() ||
+                !Configuration.ReplaceInput ||
+                !IsTyping() ||
+                (Configuration.ReplaceOnlyOnUkLayout && !IsUkrainianLayout())) return;
 
             ReplaceInput(key, shift, ref skipNext);
         }
@@ -209,6 +214,11 @@ public class UkrChatSupport : IDalamudPlugin
         }
     }
 
+    private bool IsInsideFFXIV()
+    {
+        return foregroundThreadId.Equals((uint)currentThreadId);
+    }
+
     private void ReplaceSymbols(ref SeString message)
     {
         try
@@ -264,6 +274,14 @@ public class UkrChatSupport : IDalamudPlugin
             {
                 Task.Delay(1000, stopToken.Token).Wait();
                 GetForeground();
+            }
+        }
+        catch (TaskCanceledException) { }
+        catch (AggregateException ae)
+        {
+            if (ae.InnerException is not TaskCanceledException)
+            {
+                throw;
             }
         }
         catch (Exception e)
