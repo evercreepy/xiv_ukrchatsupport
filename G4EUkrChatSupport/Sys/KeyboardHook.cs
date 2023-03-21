@@ -1,6 +1,8 @@
 ﻿#pragma warning disable CS0649
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using static UkrChatSupportPlugin.Sys.Constants;
@@ -191,7 +193,13 @@ public class KeyboardHook : IDisposable
         else
             HookID = SetWindowsHookEx(HookType.WH_KEYBOARD, TheHookCB, nint.Zero, GetCurrentThreadId());
 
-        if (HookID == nint.Zero) throw new Exception(Marshal.GetLastWin32Error().ToString());
+        if (HookID == nint.Zero)
+        {
+            var errorCode = Marshal.GetLastWin32Error();
+            throw new Win32Exception(
+                errorCode,
+                $"Failed to adjust keyboard hooks for '{Process.GetCurrentProcess().ProcessName}'. Error {errorCode}: {new Win32Exception(Marshal.GetLastWin32Error()).Message}.");
+        }
     }
 
     public void Dispose()

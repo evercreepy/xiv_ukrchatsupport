@@ -24,13 +24,14 @@ public class UkrChatSupport : IDalamudPlugin
     private uint foregroundThreadId;
     private IntPtr foregroundWindow;
     private bool isDisposed;
+    private volatile bool isHooked;
     private KeyboardHook? keyboardHook;
 
     private CancellationTokenSource? stopToken;
 
 #pragma warning disable CS8618
     /// <summary>
-    /// Plugin setup in Framework thread
+    ///     Plugin setup in Framework thread
     /// </summary>
     /// <param name="pluginInterface"></param>
     /// <param name="chatGui"></param>
@@ -42,14 +43,16 @@ public class UkrChatSupport : IDalamudPlugin
         [RequiredVersion("1.0")] Framework framework)
     {
         PluginInterface = pluginInterface;
+        Framework = framework;
         Chat = chatGui;
         Game = gameGui;
 
-        framework.RunOnFrameworkThread(Setup);
+        Framework.RunOnFrameworkThread(Setup);
     }
 #pragma warning restore CS8618
 
     private DalamudPluginInterface PluginInterface { get; init; }
+    private Framework Framework { get; init; }
     public WindowSystem WindowSystem { get; set; }
     public Configuration Configuration { get; set; }
     public ChatGui Chat { get; set; }
@@ -72,12 +75,7 @@ public class UkrChatSupport : IDalamudPlugin
                 stopToken?.Cancel();
                 stopToken?.Dispose();
                 Chat.CheckMessageHandled -= ChatOnCheckMessageHandled;
-                if (keyboardHook != null)
-                {
-                    keyboardHook.KeyDown -= Handle_keyboardHookOnKeyDown;
-                    keyboardHook.OnError -= Handle_keyboardHook_OnError;
-                    keyboardHook.Dispose();
-                }
+                StopHook();
             }
 
             stopToken = null;
@@ -104,10 +102,8 @@ public class UkrChatSupport : IDalamudPlugin
 
         Chat.CheckMessageHandled += ChatOnCheckMessageHandled;
 
-        keyboardHook = new KeyboardHook(true);
-        keyboardHook.KeyDown += Handle_keyboardHookOnKeyDown;
-        keyboardHook.OnError += Handle_keyboardHook_OnError;
         currentThreadId = KeyboardHook.GetCurrentThreadId();
+        StartHook();
     }
 
     private void Handle_ConfigurationOnOnConfigChanged(Configuration configuration)
@@ -219,6 +215,45 @@ public class UkrChatSupport : IDalamudPlugin
         return foregroundThreadId.Equals((uint)currentThreadId);
     }
 
+    private void StartHook()
+    {
+        Framework.RunOnFrameworkThread(() =>
+        {
+            if (isHooked || keyboardHook is not null) return;
+            try
+            {
+                keyboardHook = new KeyboardHook(true);
+                keyboardHook.KeyDown += Handle_keyboardHookOnKeyDown;
+                keyboardHook.OnError += Handle_keyboardHook_OnError;
+                isHooked = true;
+            }
+            catch (Exception e)
+            {
+                PluginLog.LogError(e, e.Message);
+            }
+        });
+    }
+
+    private void StopHook()
+    {
+        Framework.RunOnFrameworkThread(() =>
+        {
+            if (!isHooked || keyboardHook is null) return;
+            try
+            {
+                keyboardHook.KeyDown -= Handle_keyboardHookOnKeyDown;
+                keyboardHook.OnError -= Handle_keyboardHook_OnError;
+                keyboardHook.Dispose();
+                keyboardHook = null;
+                isHooked = false;
+            }
+            catch (Exception e)
+            {
+                PluginLog.LogError(e, e.Message);
+            }
+        });
+    }
+
     private void ReplaceSymbols(ref SeString message)
     {
         try
@@ -263,6 +298,10 @@ public class UkrChatSupport : IDalamudPlugin
     {
         foregroundWindow = NativeMethods.GetForegroundWindow();
         foregroundThreadId = NativeMethods.GetWindowThreadProcessId(foregroundWindow, nint.Zero);
+        if (IsInsideFFXIV())
+            StartHook();
+        else
+            StopHook();
     }
 
     private void BackgroundWorker()
@@ -279,10 +318,7 @@ public class UkrChatSupport : IDalamudPlugin
         catch (TaskCanceledException) { }
         catch (AggregateException ae)
         {
-            if (ae.InnerException is not TaskCanceledException)
-            {
-                throw;
-            }
+            if (ae.InnerException is not TaskCanceledException) throw;
         }
         catch (Exception e)
         {
