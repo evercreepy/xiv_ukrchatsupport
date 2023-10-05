@@ -2,14 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Dalamud.Game;
-using Dalamud.Game.Gui;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using Dalamud.Interface.Windowing;
-using Dalamud.Logging;
 using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using UkrChatSupportPlugin.Sys;
 using UkrChatSupportPlugin.Windows;
@@ -30,32 +28,35 @@ public class UkrChatSupport : IDalamudPlugin
 
 #pragma warning disable CS8618
     /// <summary>
-    ///     Plugin setup in Framework thread
+    /// Plugin setup in Framework thread
     /// </summary>
     /// <param name="pluginInterface"></param>
     /// <param name="chatGui"></param>
     /// <param name="gameGui"></param>
     /// <param name="framework"></param>
+    /// <param name="pluginLog"></param>
     public UkrChatSupport(
         DalamudPluginInterface pluginInterface,
-        ChatGui chatGui, GameGui gameGui,
-        Framework framework)
+        IChatGui chatGui, IGameGui gameGui,
+        IFramework framework, IPluginLog pluginLog)
     {
         PluginInterface = pluginInterface;
         Framework = framework;
         Chat = chatGui;
         Game = gameGui;
+        PluginLog = pluginLog;
 
         Framework.RunOnFrameworkThread(Setup);
     }
 #pragma warning restore CS8618
 
     private DalamudPluginInterface PluginInterface { get; init; }
-    private Framework Framework { get; init; }
+    private IFramework Framework { get; init; }
+    public IPluginLog PluginLog { get; init; }
+    public IChatGui Chat { get; init; }
+    public IGameGui Game { get; init; }
     public WindowSystem WindowSystem { get; set; }
     public Configuration Configuration { get; set; }
-    public ChatGui Chat { get; set; }
-    public GameGui Game { get; set; }
     private ConfigWindow ConfigWindow { get; set; }
     public string Name => "G4E UkrChatSupport";
 
@@ -122,9 +123,9 @@ public class UkrChatSupport : IDalamudPlugin
 
     private void WriteCurrentConfig()
     {
-        PluginLog.LogInformation($"Configuration.ReactOnlyToUkLayout - {Configuration.ReactOnlyToUkLayout}");
-        PluginLog.LogInformation($"Configuration.ReplaceOnlyOnUkLayout - {Configuration.ReplaceOnlyOnUkLayout}");
-        PluginLog.LogInformation($"Configuration.ReplaceInput - {Configuration.ReplaceInput}");
+        PluginLog.Information($"Configuration.ReactOnlyToUkLayout - {Configuration.ReactOnlyToUkLayout}");
+        PluginLog.Information($"Configuration.ReplaceOnlyOnUkLayout - {Configuration.ReplaceOnlyOnUkLayout}");
+        PluginLog.Information($"Configuration.ReplaceInput - {Configuration.ReplaceInput}");
     }
 
     private void Handle_keyboardHookOnKeyDown(Constants.Keys key, bool shift, bool ctrl, bool alt, ref bool skipNext)
@@ -140,7 +141,7 @@ public class UkrChatSupport : IDalamudPlugin
         }
         catch (Exception e)
         {
-            PluginLog.LogError(e, e.Message);
+            PluginLog.Error(e, e.Message);
         }
     }
 
@@ -156,7 +157,7 @@ public class UkrChatSupport : IDalamudPlugin
 
     private void Handle_keyboardHook_OnError(Exception e)
     {
-        PluginLog.LogError(e, e.Message);
+        PluginLog.Error(e, e.Message);
     }
 
     private void InitCheckerThread()
@@ -228,7 +229,7 @@ public class UkrChatSupport : IDalamudPlugin
             }
             catch (Exception e)
             {
-                PluginLog.LogError(e, e.Message);
+                PluginLog.Error(e, e.Message);
             }
         });
     }
@@ -248,7 +249,7 @@ public class UkrChatSupport : IDalamudPlugin
             }
             catch (Exception e)
             {
-                PluginLog.LogError(e, e.Message);
+                PluginLog.Error(e, e.Message);
             }
         });
     }
@@ -276,8 +277,8 @@ public class UkrChatSupport : IDalamudPlugin
         }
         catch (Exception e)
         {
-            PluginLog.LogDebug(e, $"Failed to replace symbols for: {message}");
-            PluginLog.LogError(e, e.Message);
+            PluginLog.Debug(e, $"Failed to replace symbols for: {message}");
+            PluginLog.Error(e, e.Message);
         }
     }
 
@@ -321,7 +322,7 @@ public class UkrChatSupport : IDalamudPlugin
         }
         catch (Exception e)
         {
-            PluginLog.LogError(e, e.Message);
+            PluginLog.Error(e, e.Message);
         }
     }
 
