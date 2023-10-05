@@ -8,7 +8,6 @@
         "TestingAssemblyVersion": "1.0.0.28",
         "RepoUrl": "https://github.com/justscribe/g4e_ukrchatsupport",
         "ApplicableVersion": "any",
-        "DalamudApiLevel": 8,
         "IsHide": "False",
         "IsTestingExclusive": "False",
         "DownloadCount": 0,
