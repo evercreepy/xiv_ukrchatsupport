@@ -8,7 +8,6 @@ using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using Dalamud.Interface.Windowing;
-using Dalamud.IoC;
 using Dalamud.Logging;
 using Dalamud.Plugin;
 using FFXIVClientStructs.FFXIV.Component.GUI;
@@ -38,9 +37,9 @@ public class UkrChatSupport : IDalamudPlugin
     /// <param name="gameGui"></param>
     /// <param name="framework"></param>
     public UkrChatSupport(
-        [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
-        [RequiredVersion("1.0")] ChatGui chatGui, [RequiredVersion("1.0")] GameGui gameGui,
-        [RequiredVersion("1.0")] Framework framework)
+        DalamudPluginInterface pluginInterface,
+        ChatGui chatGui, GameGui gameGui,
+        Framework framework)
     {
         PluginInterface = pluginInterface;
         Framework = framework;
