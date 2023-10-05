@@ -3,13 +3,13 @@
     <PropertyGroup>
         <Authors>justscribe</Authors>
         <Company>G4E</Company>
-        <Version>1.0.0.28</Version>
+        <Version>1.0.0.30</Version>
         <Description>A Dalamud plugin to support ukrainian symbols in game chat.</Description>
         <Copyright>Gaming4Eternity Ukrainian Community</Copyright>
         <PackageProjectUrl>https://github.com/justscribe/g4e_ukrchatsupport</PackageProjectUrl>
         <RootNamespace>UkrChatSupportPlugin</RootNamespace>
-        <AssemblyVersion>1.0.0.28</AssemblyVersion>
-        <FileVersion>1.0.0.28</FileVersion>
+        <AssemblyVersion>1.0.0.30</AssemblyVersion>
+        <FileVersion>1.0.0.30</FileVersion>
         <Configurations>Debug;Release</Configurations>
     </PropertyGroup>
 
