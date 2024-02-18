@@ -1,13 +1,18 @@
 # `G4E Ukrainian Chat Support Plugin`
 
+[![logo](images/icon.png)](https://gaming4eternity.online)  
+[![Завантажено](https://img.shields.io/github/downloads/justscribe/g4e_ukrchatsupport/total.svg)](https://github.com/justscribe/g4e_ukrchatsupport)
+
 ### === УКРАЇНСЬКОЮ ===
-Dalamud плагін для коректного (наскільки дозволяє гра) відображення українських символів у вікні чату гри.
+Dalamud плагін для коректного (наскільки дозволяє гра) відображення українських символів у вікні чату гри.  
+Суть роботи проста, він автоматично підміняє символи української мови на ті, які відображатимуться не як символ "=".  
+У нас також є [українізатор](https://github.com/justscribe/ffxiv_ukrainian)!
 
 #### **Основні деталі**
 
 * Основний функціонал
-  * Заміна специфічних українських символів в чаті гри для дітер "і", "ї", "є" ("ґ" - не підтримується).
-  * Заміну можна налаштувати окремо для вводу, щоб реагування тільки на українську розкладку (стандартні налаштування мають підійти для 99% людей).
+  * Заміна специфічних українських символів в чаті гри для літер "і", "ї", "є" ("ґ" - не підтримується).
+  * Заміну можна налаштувати окремо для вводу, щоб реагувати тільки на українську розкладку (стандартні налаштування мають підійти для 99% людей).
   * Навіть якщо вам в чат написав хтось без плагіна, відобразиться все з заміною.
 
 * Опції
@@ -18,7 +23,7 @@ Dalamud плагін для коректного (наскільки дозво�
 #### **Як користуватись**
 
 ###### Є 2 варіанти:
-1. Встановити зі списку тестових плагінів - [детальна інструкція](https://kutok.io/g4eukrchatsupport/yak_vstanovyty_plahin_-hbi).
+1. Встановити зі списку плагінів - [детальна інструкція](https://kutok.io/g4eukrchatsupport/yak_vstanovyty_plahin_-hbi).
 2. Або використайте лінк на вкладці "Experimental" в Dalamud - https://raw.githubusercontent.com/justscribe/g4e_ukrchatsupport/master/repo.json для отримання самих останніх релізів дуже швидко.
 
 ### === IN ENGLISH ===
@@ -26,7 +31,7 @@ A Dalamud plugin to correctly (as far as the game allows) show ukrainian symbols
 
 #### **Main Points**
 
-* Main functionality
+* Functionality
   * Replace ukrainian specific characters in game chat for "і", "ї", "є" ("ґ" - is not supported).
   * Replace can be configured separately for input to react only to ukrainian layout (default configuration should fit fot 99% of the people).
   * Even if someone wrote in your chat without a plugin, all will be shown with replacement.
@@ -43,10 +48,6 @@ A Dalamud plugin to correctly (as far as the game allows) show ukrainian symbols
 2. Or use the link on Dalamud "Experimental" tab - https://raw.githubusercontent.com/justscribe/g4e_ukrchatsupport/master/repo.json to receive latest releases faster.
 
 #### **Info**
-
-Gaming4Eternity \
-Ukrainian MMO Community \
-![Logo](images/icon.png)
 
 `Discord` - https://discord.gg/nDX3Rnx \
 `Site` - https://gaming4eternity.online

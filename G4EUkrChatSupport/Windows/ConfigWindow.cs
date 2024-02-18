@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics;
+using System.Numerics;
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
 
@@ -14,7 +15,7 @@ public class ConfigWindow : Window
                                                       ImGuiWindowFlags.NoScrollbar |
                                                       ImGuiWindowFlags.NoScrollWithMouse)
     {
-        Size = new Vector2(320, 115);
+        Size = new Vector2(320, 145);
         SizeCondition = ImGuiCond.Always;
         Configuration = plugin.Configuration;
     }
@@ -40,6 +41,29 @@ public class ConfigWindow : Window
         {
             Configuration.ReplaceInput = replaceInput;
             Configuration.Save();
+        }
+
+        ImGui.Spacing();
+        ImGui.PushStyleColor(ImGuiCol.Button, 0xFF000000 | 0x005E5BFF);
+        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0xDD000000 | 0x005E5BFF);
+        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xAA000000 | 0x005E5BFF);
+        if (ImGui.Button("Buy Me a Coffee"))
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://www.buymeacoffee.com/justscribe",
+                UseShellExecute = true,
+            });
+        }
+
+        ImGui.SameLine();
+        if (ImGui.Button("Gaming For Eternity"))
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://www.gaming4eternity.online",
+                UseShellExecute = true,
+            });
         }
     }
 }
