@@ -188,7 +188,7 @@ public class UkrChatSupport : IDalamudPlugin
         return currentLayout.TwoLetterISOLanguageName.Equals("uk");
     }
 
-    private bool IsChatTypeSupported(XivChatType type)
+    private static bool IsChatTypeSupported(XivChatType type)
     {
         // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
         switch (type)
