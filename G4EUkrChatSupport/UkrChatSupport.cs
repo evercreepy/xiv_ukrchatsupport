@@ -145,7 +145,7 @@ public class UkrChatSupport : IDalamudPlugin
         }
     }
 
-    private void ReplaceInput(Constants.Keys aKey, bool aIsShift, ref bool aNextSkip)
+    private static void ReplaceInput(Constants.Keys aKey, bool aIsShift, ref bool aNextSkip)
     {
         foreach (var keyReplace in Constants.ReplaceKeys.Where(keyReplace => keyReplace.Key == aKey))
         {
