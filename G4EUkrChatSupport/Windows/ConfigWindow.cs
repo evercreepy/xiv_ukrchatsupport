@@ -65,5 +65,7 @@ public class ConfigWindow : Window
                 UseShellExecute = true,
             });
         }
+
+        ImGui.PopStyleColor(3);
     }
 }
