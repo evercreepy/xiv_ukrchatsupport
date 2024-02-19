@@ -4,8 +4,8 @@
         "Name": "G4EUkrChatSupport",
         "Description": "Support for ukrainian characters in text chat and input field.",
         "InternalName": "G4EUkrChatSupport",
-        "AssemblyVersion": "1.0.0.33",
-        "TestingAssemblyVersion": "1.0.0.33",
+        "AssemblyVersion": "1.0.0.34",
+        "TestingAssemblyVersion": "1.0.0.34",
         "RepoUrl": "https://github.com/justscribe/g4e_ukrchatsupport",
         "ApplicableVersion": "any",
         "IsHide": "False",
@@ -15,9 +15,9 @@
         "LoadPriority": 69420,
         "LoadRequiredState": 2,
         "LoadSync": true,
-        "DownloadLinkInstall": "https://github.com/justscribe/g4e_ukrchatsupport/releases/download/1.0.0.33/G4EUkrChatSupport.zip",
-        "DownloadLinkTesting": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.33/G4EUkrChatSupport.zip",
-        "DownloadLinkUpdate": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.33/G4EUkrChatSupport.zip",
+        "DownloadLinkInstall": "https://github.com/justscribe/g4e_ukrchatsupport/releases/download/1.0.0.34/G4EUkrChatSupport.zip",
+        "DownloadLinkTesting": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.34/G4EUkrChatSupport.zip",
+        "DownloadLinkUpdate": "https://github.com/justscribe/g4e_ukrchatsupport/download/1.0.0.34/G4EUkrChatSupport.zip",
         "IconUrl": "https://raw.githubusercontent.com/justscribe/g4e_ukrchatsupport/master/images/icon.png"
     }
 ]
