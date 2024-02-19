@@ -1,7 +1,7 @@
 # `G4E Ukrainian Chat Support Plugin`
 
 [![logo](images/icon.png)](https://gaming4eternity.online)  
-[![Завантажено](https://img.shields.io/github/downloads/justscribe/g4e_ukrchatsupport/total.svg)](https://github.com/justscribe/g4e_ukrchatsupport)
+[![Завантажено](https://img.shields.io/github/downloads/justscribe/g4e_ukrchatsupport/total)](https://github.com/justscribe/g4e_ukrchatsupport)
 
 ### === УКРАЇНСЬКОЮ ===
 Dalamud плагін для коректного (наскільки дозволяє гра) відображення українських символів у вікні чату гри.  
