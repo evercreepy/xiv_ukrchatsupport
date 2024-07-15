@@ -1,3 +1,5 @@
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
+
 # `G4E Ukrainian Chat Support Plugin`
 
 [![logo](images/icon.png)](https://gaming4eternity.online)  
