@@ -173,9 +173,9 @@ public class UkrChatSupport : IDalamudPlugin
     }
 
     private void ChatOnCheckMessageHandled(
-        XivChatType chatType, uint senderId, ref SeString sender, ref SeString message, ref bool isHandled)
+        XivChatType type, int timestamp, ref SeString sender, ref SeString message, ref bool isHandled)
     {
-        if (isHandled || !IsChatTypeSupported(chatType)) return;
+        if (isHandled || !IsChatTypeSupported(type)) return;
         if (Configuration.ReactOnlyToUkLayout && !IsUkrainianLayout()) return;
 
         ReplaceSymbols(ref message);
@@ -291,7 +291,7 @@ public class UkrChatSupport : IDalamudPlugin
         var textInput = chatLog->UldManager.NodeList[15];
         var chatCursor = textInput->GetAsAtkComponentNode()->Component->UldManager.NodeList[14];
 
-        return chatCursor->IsVisible;
+        return chatCursor->IsVisible();
     }
 
     private void GetForeground()
