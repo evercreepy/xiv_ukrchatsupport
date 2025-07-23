@@ -25,9 +25,10 @@ Dalamud плагін для коректного (наскільки дозво�
 
 #### **Як користуватись**
 
-###### Є 2 варіанти:
-1. Встановити зі списку плагінів - [детальна інструкція](https://kutok.io/g4eukrchatsupport/yak_vstanovyty_plahin_-hbi).
-2. Або використайте лінк на вкладці "Experimental" в Dalamud - https://raw.githubusercontent.com/evercreepy/xiv_ukrchatsupport/master/repo.json для отримання самих останніх релізів дуже швидко.
+###### Є два способи:
+1. <del> Встановити зі списку плагінів - [детальна інструкція](https://kutok.io/g4eukrchatsupport/yak_vstanovyty_plahin_-hbi). </del> працює наразі тільки з оригінальним плагіном, форка немає в офіційній колекції.
+
+2. Використайте лінк на вкладці "Experimental" в Dalamud - https://raw.githubusercontent.com/evercreepy/xiv_ukrchatsupport/master/repo.json для отримання самих останніх релізів дуже швидко.
 
 ### === IN ENGLISH ===
 #### UPD from evercreepy: This is a fork of the original G4E plugin created by justscribe, which is unfortunately no longer supported.
@@ -50,5 +51,5 @@ A Dalamud plugin to correctly (as far as the game allows) show ukrainian symbols
 #### **To Use**
 
 ###### There are 2 ways:
-1. Install from the list of test plugins.
-2. Or use the link on Dalamud "Experimental" tab - https://raw.githubusercontent.com/evercreepy/xiv_ukrchatsupport/master/repo.json to receive latest releases faster.
+1. <del>Install from the list of test plugins. </del> - doesn't work for the plugin fork.
+2. Use the link on Dalamud "Experimental" tab - https://raw.githubusercontent.com/evercreepy/xiv_ukrchatsupport/master/repo.json to receive latest releases faster.
