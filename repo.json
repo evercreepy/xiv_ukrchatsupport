@@ -1,7 +1,7 @@
 [
     {
         "Author": "justscribe",
-        "Name": "G4E UkrChatSupport",
+        "Name": "G4EUkrChatSupport",
         "Description": "Support for ukrainian characters in text chat and input field.",
         "InternalName": "G4EUkrChatSupport",
         "AssemblyVersion": "1.0.0.35",
@@ -21,4 +21,3 @@
         "IconUrl": "https://raw.githubusercontent.com/evercreepy/xiv_ukrchatsupport/master/images/icon.png"
     }
 ]
-ld
