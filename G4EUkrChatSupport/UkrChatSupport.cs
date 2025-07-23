@@ -9,6 +9,7 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
+using FFXIVClientStructs.FFXIV.Client.UI;
 using UkrChatSupportPlugin.Sys;
 using UkrChatSupportPlugin.Windows;
 
@@ -284,13 +285,21 @@ public class UkrChatSupport : IDalamudPlugin
 
     private unsafe bool IsTyping()
     {
-        var chatLog = (AtkUnitBase*)Game.GetAddonByName("ChatLog");
+        var chatlog = (AtkUnitBase*)Game.GetAddonByName("ChatLog", 1);
+        if (chatlog == null || !chatlog->IsVisible) return false;
 
-        if (!chatLog->IsVisible) return false;
+        var textInput = chatlog->UldManager.NodeList[16];
+        if (textInput == null) return false;
 
-        var textInput = chatLog->UldManager.NodeList[15];
-        var chatCursor = textInput->GetAsAtkComponentNode()->Component->UldManager.NodeList[14];
+        var componentNode = textInput->GetAsAtkComponentNode();
+        if (componentNode == null) return false;
 
+        var component = componentNode->Component;
+        if (component == null) return false;
+
+        var chatCursor = component->UldManager.NodeList[14];
+        if (chatCursor == null) return false;
+        
         return chatCursor->IsVisible();
     }
 

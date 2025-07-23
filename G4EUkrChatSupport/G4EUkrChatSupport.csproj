@@ -4,7 +4,7 @@
         <Authors>justscribe</Authors>
         <Company>G4E</Company>
         <Version>1.0.0.35</Version>
-        <Description>A Dalamud plugin to support ukrainian symbols in game chat.</Description>
+        <Description>A Dalamud plugin to support ukrainian symbols in game chat. Forked from justscribe's plugin.</Description>
         <Copyright>Gaming4Eternity Ukrainian Community</Copyright>
         <PackageProjectUrl>https://github.com/evercreepy/xiv_ukrchatsupport</PackageProjectUrl>
         <RootNamespace>UkrChatSupportPlugin</RootNamespace>

@@ -47,21 +47,21 @@ public class ConfigWindow : Window
         ImGui.PushStyleColor(ImGuiCol.Button, 0xFF000000 | 0x005E5BFF);
         ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0xDD000000 | 0x005E5BFF);
         ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xAA000000 | 0x005E5BFF);
-        if (ImGui.Button("Buy Me a Coffee"))
+        if (ImGui.Button("Support justscribe"))
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = "https://www.buymeacoffee.com/justscribe",
+                FileName = "https://donatello.to/justscribe",
                 UseShellExecute = true,
             });
         }
 
         ImGui.SameLine();
-        if (ImGui.Button("Gaming For Eternity"))
+        if (ImGui.Button("Original plugin"))
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = "https://www.gaming4eternity.online",
+                FileName = "https://github.com/justscribe/g4e_ukrchatsupport",
                 UseShellExecute = true,
             });
         }

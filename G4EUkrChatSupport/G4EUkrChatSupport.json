@@ -1,8 +1,8 @@
 {
-    "Author": "justscribe",
+    "Author": "evercreepy",
     "Name": "G4E UkrChatSupport",
     "Punchline": "Support for ukrainian characters.",
-    "Description": "Support for ukrainian characters in text chat and input field.",
+    "Description": " Original plugin by justscribe. Support for ukrainian characters in text chat and input field.",
     "InternalName": "G4EUkrChatSupport",
     "ApplicableVersion": "any",
     "DalamudApiLevel": 12,
