@@ -2,13 +2,14 @@
 
 # `G4E Ukrainian Chat Support Plugin`
 
-[![logo](images/icon.png)](https://gaming4eternity.online)  
-[![Завантажено](https://img.shields.io/github/downloads/justscribe/g4e_ukrchatsupport/total)](https://github.com/justscribe/g4e_ukrchatsupport)
-
 ### === УКРАЇНСЬКОЮ ===
+
+#### UPD від evercreepy: Це форк плагіну G4EUkrChatSupport за авторством justscribe, який нажаль більше не підтримується. Дякую автору за розробку.
+Плагін мігровано на Dalamud.NET.Sdk, зроблено незначні виправлення потрібні для підтримки поточної версії Dalamud.
+
 Dalamud плагін для коректного (наскільки дозволяє гра) відображення українських символів у вікні чату гри.  
 Суть роботи проста, він автоматично підміняє символи української мови на ті, які відображатимуться не як символ "=".  
-У нас також є [українізатор](https://github.com/justscribe/ffxiv_ukrainian)!
+
 
 #### **Основні деталі**
 
@@ -24,11 +25,15 @@ Dalamud плагін для коректного (наскільки дозво�
 
 #### **Як користуватись**
 
-###### Є 2 варіанти:
-1. Встановити зі списку плагінів - [детальна інструкція](https://kutok.io/g4eukrchatsupport/yak_vstanovyty_plahin_-hbi).
-2. Або використайте лінк на вкладці "Experimental" в Dalamud - https://raw.githubusercontent.com/justscribe/g4e_ukrchatsupport/master/repo.json для отримання самих останніх релізів дуже швидко.
+###### Є два способи:
+1. <del> Встановити зі списку плагінів - [детальна інструкція](https://kutok.io/g4eukrchatsupport/yak_vstanovyty_plahin_-hbi). </del> працює наразі тільки з оригінальним плагіном, форка немає в офіційній колекції.
+
+2. Використайте лінк на вкладці "Experimental" в Dalamud - https://raw.githubusercontent.com/evercreepy/xiv_ukrchatsupport/master/repo.json для отримання самих останніх релізів дуже швидко.
 
 ### === IN ENGLISH ===
+#### UPD from evercreepy: This is a fork of the original G4E plugin created by justscribe, which is unfortunately no longer supported.
+Project migrated to Dalamud.NET.Sdk for current Dalamud version support.
+
 A Dalamud plugin to correctly (as far as the game allows) show ukrainian symbols in game chat window.
 
 #### **Main Points**
@@ -46,10 +51,5 @@ A Dalamud plugin to correctly (as far as the game allows) show ukrainian symbols
 #### **To Use**
 
 ###### There are 2 ways:
-1. Install from the list of test plugins.
-2. Or use the link on Dalamud "Experimental" tab - https://raw.githubusercontent.com/justscribe/g4e_ukrchatsupport/master/repo.json to receive latest releases faster.
-
-#### **Info**
-
-`Discord` - https://discord.gg/nDX3Rnx \
-`Site` - https://gaming4eternity.online
+1. <del>Install from the list of test plugins. </del> - doesn't work for the plugin fork.
+2. Use the link on Dalamud "Experimental" tab - https://raw.githubusercontent.com/evercreepy/xiv_ukrchatsupport/master/repo.json to receive latest releases faster.

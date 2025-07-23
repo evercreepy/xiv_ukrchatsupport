@@ -9,6 +9,7 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
+using FFXIVClientStructs.FFXIV.Client.UI;
 using UkrChatSupportPlugin.Sys;
 using UkrChatSupportPlugin.Windows;
 
@@ -36,7 +37,7 @@ public class UkrChatSupport : IDalamudPlugin
     /// <param name="framework"></param>
     /// <param name="pluginLog"></param>
     public UkrChatSupport(
-        DalamudPluginInterface pluginInterface,
+        IDalamudPluginInterface pluginInterface,
         IChatGui chatGui, IGameGui gameGui,
         IFramework framework, IPluginLog pluginLog)
     {
@@ -50,7 +51,7 @@ public class UkrChatSupport : IDalamudPlugin
     }
 #pragma warning restore CS8618
 
-    private DalamudPluginInterface PluginInterface { get; init; }
+    private IDalamudPluginInterface PluginInterface { get; init; }
     private IFramework Framework { get; init; }
     public IPluginLog PluginLog { get; init; }
     public IChatGui Chat { get; init; }
@@ -173,9 +174,9 @@ public class UkrChatSupport : IDalamudPlugin
     }
 
     private void ChatOnCheckMessageHandled(
-        XivChatType chatType, uint senderId, ref SeString sender, ref SeString message, ref bool isHandled)
+        XivChatType type, int timestamp, ref SeString sender, ref SeString message, ref bool isHandled)
     {
-        if (isHandled || !IsChatTypeSupported(chatType)) return;
+        if (isHandled || !IsChatTypeSupported(type)) return;
         if (Configuration.ReactOnlyToUkLayout && !IsUkrainianLayout()) return;
 
         ReplaceSymbols(ref message);
@@ -284,14 +285,22 @@ public class UkrChatSupport : IDalamudPlugin
 
     private unsafe bool IsTyping()
     {
-        var chatLog = (AtkUnitBase*)Game.GetAddonByName("ChatLog");
+        var chatlog = (AtkUnitBase*)Game.GetAddonByName("ChatLog", 1);
+        if (chatlog == null || !chatlog->IsVisible) return false;
 
-        if (!chatLog->IsVisible) return false;
+        var textInput = chatlog->UldManager.NodeList[16];
+        if (textInput == null) return false;
 
-        var textInput = chatLog->UldManager.NodeList[15];
-        var chatCursor = textInput->GetAsAtkComponentNode()->Component->UldManager.NodeList[14];
+        var componentNode = textInput->GetAsAtkComponentNode();
+        if (componentNode == null) return false;
 
-        return chatCursor->IsVisible;
+        var component = componentNode->Component;
+        if (component == null) return false;
+
+        var chatCursor = component->UldManager.NodeList[14];
+        if (chatCursor == null) return false;
+        
+        return chatCursor->IsVisible();
     }
 
     private void GetForeground()

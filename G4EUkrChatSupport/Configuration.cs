@@ -11,7 +11,7 @@ public class Configuration : IPluginConfiguration
 
     [NonSerialized]
     // ReSharper disable once InconsistentNaming
-    private DalamudPluginInterface? PluginInterface;
+    private IDalamudPluginInterface? PluginInterface;
 
     public bool ReactOnlyToUkLayout { get; set; }
     public bool ReplaceOnlyOnUkLayout { get; set; } = true;
@@ -21,7 +21,7 @@ public class Configuration : IPluginConfiguration
 
     public event ConfigChanged? OnConfigChanged;
 
-    public void Initialize(DalamudPluginInterface pluginInterface)
+    public void Initialize(IDalamudPluginInterface pluginInterface)
     {
         PluginInterface = pluginInterface;
     }
