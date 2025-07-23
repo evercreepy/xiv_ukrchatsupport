@@ -5,7 +5,8 @@
     "Description": "Support for ukrainian characters in text chat and input field.",
     "InternalName": "G4EUkrChatSupport",
     "ApplicableVersion": "any",
-    "RepoUrl": "https://github.com/justscribe/g4e_ukrchatsupport",
+    "DalamudApiLevel": 12,
+    "RepoUrl": "https://github.com/evercreepy/xiv_ukrchatsupport",
     "Tags": [
         "chat",
         "ukr",

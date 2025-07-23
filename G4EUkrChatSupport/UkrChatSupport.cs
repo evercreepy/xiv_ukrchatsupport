@@ -36,7 +36,7 @@ public class UkrChatSupport : IDalamudPlugin
     /// <param name="framework"></param>
     /// <param name="pluginLog"></param>
     public UkrChatSupport(
-        DalamudPluginInterface pluginInterface,
+        IDalamudPluginInterface pluginInterface,
         IChatGui chatGui, IGameGui gameGui,
         IFramework framework, IPluginLog pluginLog)
     {
@@ -50,7 +50,7 @@ public class UkrChatSupport : IDalamudPlugin
     }
 #pragma warning restore CS8618
 
-    private DalamudPluginInterface PluginInterface { get; init; }
+    private IDalamudPluginInterface PluginInterface { get; init; }
     private IFramework Framework { get; init; }
     public IPluginLog PluginLog { get; init; }
     public IChatGui Chat { get; init; }
