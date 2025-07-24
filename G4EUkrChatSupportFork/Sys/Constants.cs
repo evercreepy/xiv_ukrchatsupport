@@ -4,7 +4,7 @@
 // ReSharper disable IdentifierTypo
 // ReSharper disable CommentTypo
 
-namespace UkrChatSupportPlugin.Sys;
+namespace G4EUkrChatSupportFork.Sys;
 
 public static class Constants
 {

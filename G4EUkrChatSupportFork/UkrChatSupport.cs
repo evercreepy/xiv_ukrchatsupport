@@ -10,10 +10,10 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using FFXIVClientStructs.FFXIV.Client.UI;
-using UkrChatSupportPlugin.Sys;
-using UkrChatSupportPlugin.Windows;
+using G4EUkrChatSupportFork.Sys;
+using G4EUkrChatSupportFork.Windows;
 
-namespace UkrChatSupportPlugin;
+namespace G4EUkrChatSupportFork;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 public class UkrChatSupport : IDalamudPlugin
@@ -59,7 +59,7 @@ public class UkrChatSupport : IDalamudPlugin
     public WindowSystem WindowSystem { get; set; }
     public Configuration Configuration { get; set; }
     private ConfigWindow ConfigWindow { get; set; }
-    public string Name => "G4E UkrChatSupport";
+    public string Name => "G4E UkrChatSupport (Fork)";
 
     public void Dispose()
     {
