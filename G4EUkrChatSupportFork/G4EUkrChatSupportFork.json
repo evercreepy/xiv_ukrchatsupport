@@ -5,7 +5,7 @@
     "Description": " Original plugin by justscribe. Support for ukrainian characters in text chat and input field.",
     "InternalName": "G4EUkrChatSupportFork",
     "ApplicableVersion": "any",
-    "DalamudApiLevel": 12,
+    "DalamudApiLevel": 14,
     "RepoUrl": "https://github.com/evercreepy/xiv_ukrchatsupport",
     "Tags": [
         "chat",
