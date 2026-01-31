@@ -1,35 +1,43 @@
 name: .NET Build
 
 on:
-    push:
-        branches: '*'
-        tags-ignore: '*'
-    pull_request:
+  push:
+    branches: '*'
+    tags-ignore: '*'
+  pull_request:
 
 jobs:
-    build:
-        runs-on: windows-latest
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  submodules: true
-            - name: Setup .NET
-              uses: actions/setup-dotnet@v3
-              with:
-                  dotnet-version: '7.x.x'
-            - name: Restore dependencies
-              run: dotnet restore
-            - name: Download Dalamud
-              run: |
-                  Invoke-WebRequest -Uri https://goatcorp.github.io/dalamud-distrib/stg/latest.zip -OutFile latest.zip
-                  Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev\"
-            - name: Build
-              run: |
-                  dotnet build --no-restore --configuration Release --nologo
-            - name: Unzip latest file
-              run: 7z e ./G4EUkrChatSupport/bin/Release/G4EUkrChatSupport/latest.zip -o"./G4EUkrChatSupport/bin/Release/G4EUkrChatSupport/latest"
-            - name: Upload a Build Artifact
-              uses: actions/upload-artifact@v3
-              with:
-                  path: |
-                      ./G4EUkrChatSupport/bin/Release/G4EUkrChatSupport/latest/*
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore G4EUkrChatSupportFork/G4EUkrChatSupportFork.csproj
+
+      - name: Download Dalamud (dev hooks)
+        run: |
+          $dest = "$env:APPDATA\XIVLauncher\addon\Hooks\dev"
+          New-Item -ItemType Directory -Force -Path $dest | Out-Null
+          Invoke-WebRequest -Uri "https://goatcorp.github.io/dalamud-distrib/stg/latest.zip" -OutFile "dalamud.zip" -UseBasicParsing
+          Expand-Archive -Force "dalamud.zip" $dest
+
+      - name: Build
+        run: dotnet build G4EUkrChatSupportFork/G4EUkrChatSupportFork.csproj --no-restore --configuration Release --nologo
+
+      - name: Extract plugin package
+        run: 7z e ./G4EUkrChatSupportFork/bin/Release/G4EUkrChatSupportFork/latest.zip -o"./G4EUkrChatSupportFork/bin/Release/G4EUkrChatSupportFork/latest"
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: G4EUkrChatSupportFork
+          path: ./G4EUkrChatSupportFork/bin/Release/G4EUkrChatSupportFork/latest/*
