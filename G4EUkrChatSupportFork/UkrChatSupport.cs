@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -285,9 +285,10 @@ public class UkrChatSupport : IDalamudPlugin
 
     private unsafe bool IsTyping()
     {
-        var chatlog = (AtkUnitBase*)Game.GetAddonByName("ChatLog", 1);
-        if (chatlog == null || !chatlog->IsVisible) return false;
+        var chatlogPtr = Game.GetAddonByName("ChatLog", 1);
+        if (chatlogPtr.IsNull || !chatlogPtr.IsVisible) return false;
 
+        var chatlog = (AtkUnitBase*)chatlogPtr.Address;
         var textInput = chatlog->UldManager.NodeList[16];
         if (textInput == null) return false;
 

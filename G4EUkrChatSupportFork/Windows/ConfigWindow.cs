@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Numerics;
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Windowing;
-using ImGuiNET;
 
 namespace G4EUkrChatSupportFork.Windows
 {
