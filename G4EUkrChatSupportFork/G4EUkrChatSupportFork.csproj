@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Dalamud.NET.Sdk/12.0.2">
+<Project Sdk="Dalamud.NET.Sdk/14.0.1">
     <PropertyGroup>
         <Authors>justscribe</Authors>
         <Company>G4E</Company>
@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <TargetFramework>net9.0-windows</TargetFramework>
+        <TargetFramework>net10.0-windows</TargetFramework>
         <Platforms>AnyCPU</Platforms>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>

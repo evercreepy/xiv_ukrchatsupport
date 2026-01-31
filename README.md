@@ -53,3 +53,7 @@ A Dalamud plugin to correctly (as far as the game allows) show ukrainian symbols
 ###### There are 2 ways:
 1. <del>Install from the list of test plugins. </del> - doesn't work for the plugin fork.
 2. Use the link on Dalamud "Experimental" tab - https://raw.githubusercontent.com/evercreepy/xiv_ukrchatsupport/master/repo.json to receive latest releases faster.
+
+#### **Building**
+
+The plugin targets **Dalamud API Level 14** (latest). To build locally you need the [.NET 10 SDK](https://dotnet.microsoft.com/download). Then run `dotnet build` in `G4EUkrChatSupportFork`.
