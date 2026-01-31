@@ -4,8 +4,8 @@
         "Name": "G4EUkrChatSupportFork",
         "Description": "Support for ukrainian characters in text chat and input field.",
         "InternalName": "G4EUkrChatSupportFork",
-        "AssemblyVersion": "1.0.0.35",
-        "TestingAssemblyVersion": "1.0.0.35",
+        "AssemblyVersion": "1.0.0.36",
+        "TestingAssemblyVersion": "1.0.0.36",
         "RepoUrl": "https://github.com/evercreepy/xiv_ukrchatsupport",
         "ApplicableVersion": "any",
         "IsHide": false,
@@ -15,9 +15,9 @@
         "LoadPriority": 69420,
         "LoadRequiredState": 2,
         "LoadSync": true,
-        "DownloadLinkInstall": "https://github.com/evercreepy/xiv_ukrchatsupport/releases/download/1.0.0.35/G4EUkrChatSupport.zip",
-        "DownloadLinkTesting": "https://github.com/evercreepy/xiv_ukrchatsupport/releases/download/1.0.0.35/G4EUkrChatSupport.zip",
-        "DownloadLinkUpdate": "https://github.com/evercreepy/xiv_ukrchatsupport/releases/download/1.0.0.35/G4EUkrChatSupport.zip",
+        "DownloadLinkInstall": "https://github.com/evercreepy/xiv_ukrchatsupport/releases/download/1.0.0.36/G4EUkrChatSupport.zip",
+        "DownloadLinkTesting": "https://github.com/evercreepy/xiv_ukrchatsupport/releases/download/1.0.0.36/G4EUkrChatSupport.zip",
+        "DownloadLinkUpdate": "https://github.com/evercreepy/xiv_ukrchatsupport/releases/download/1.0.0.36/G4EUkrChatSupport.zip",
         "IconUrl": "https://raw.githubusercontent.com/evercreepy/xiv_ukrchatsupport/master/images/icon.png"
     }
 ]
