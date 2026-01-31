@@ -47,12 +47,9 @@ jobs:
           Copy-Item $src "G4EUkrChatSupport.zip"
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: G4E UkrChatSupport (Fork) ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-          files: G4EUkrChatSupport.zip
+        run: |
+          gh release create "${{ github.ref_name }}" G4EUkrChatSupport.zip `
+            --title "G4E UkrChatSupport (Fork) ${{ github.ref_name }}" `
+            --notes "Plugin release ${{ github.ref_name }}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
